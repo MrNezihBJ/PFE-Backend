@@ -1,0 +1,425 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  _id: String
+  nom: String!
+  prenom: String!
+  password: String!
+  mail: String!
+  societe: String!
+  Numero_Telephone: String!
+  status: Boolean!
+  role: String!
+  landingpage: Boolean
+}
+
+type getMachineByUser {
+  societe: String!
+  prenom: String!
+  Numero_Telephone: String!
+  _id: Int!
+  Nom_Machine: String!
+  idMachine: String!
+  Serial_Number: String!
+}
+
+type getTicketByUser {
+  NomUser: String!
+  NomMachine: String!
+  TextProbleme: String!
+  TitreTicket: String
+  Id_Machine: String
+}
+
+type ReponseUser {
+  state: String!
+}
+
+type Rapport {
+  _id: Int!
+  NomIntervenant: String!
+  ContenuRapport: String!
+  TitreRapport: String!
+  Client: String!
+  SocieteClient: String!
+  IdTicket: Int!
+  NomMachine: String!
+  IDMachine: String!
+  Exist: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ResponseRapport {
+  state: String!
+}
+
+type Ticket {
+  _id: Int!
+  IDClient: String
+  NomUser: String!
+  NomSociete: String!
+  NomMachine: String!
+  Id_Machine: String!
+  TextProbleme: String!
+  TitreTicket: String!
+  DateFin: DateTime
+  Niveau: String
+  status1: Boolean
+  statusChef: Boolean
+  statusIntervenant: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ReponseTicket {
+  state: String!
+}
+
+type Societe {
+  _id: Int!
+  nomSociete: String!
+  fix: String!
+  Email: String!
+  gouvernerat: String!
+  region: String!
+  adresse: String!
+  status: Boolean
+}
+
+type ReponseSociete {
+  state: String!
+}
+
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
+type ReponseMachine {
+  state: String!
+}
+
+type Machine {
+  _id: Int!
+  Serial_Number: String!
+  nom_Societe: String!
+  Nom_Machine: String!
+  idMachine: String!
+  Status: Boolean!
+}
+
+type Query {
+  getUserByemail(mail: String!): User!
+  findAllUserexistant: [User!]!
+  findAllUsernonexistant: [User!]!
+  findAllUser: [User!]!
+  findOneUser(IDUser: FindOneUser!): User!
+  findOneName(NomUser: FindOneName!): User!
+  getMachineByUser: [getMachineByUser!]!
+  getTicketByUser: [getTicketByUser!]!
+  findAllRapportExistant: [Rapport!]!
+  findAllRapportSupprimer: [Rapport!]!
+  findOneRapport(IDRapport: FindOneRapport!): Rapport!
+  findAllTicketexistant: [Ticket!]!
+  findAllTicketforIntervenant: [Ticket!]!
+  findAllTicketTraiter: [Ticket!]!
+  findAllTicketSupprimer: [Ticket!]!
+  findOneTicketID(IDTicket: FindOneTicketID!): Ticket!
+  CountAllTicket: [Int!]!
+  CountAllTicketByNameMachine: [Int!]!
+  totalSocietes: Int!
+  findAllSocieteexistant: [Societe!]!
+  findAllSocietenonexistant: [Societe!]!
+  findSocieteById(idSociete: FindOneSociete!): Societe!
+  findSocieteByName(nomSociete: FindOneSocieteName!): Societe!
+  machine(id: Int!): Machine!
+  findAllMachine: [Machine!]!
+}
+
+input FindOneUser {
+  _id: String!
+  nom: String
+  prenom: String
+  password: String
+  mail: String
+  societe: String
+  Numero_Telephone: String
+  role: String = "client"
+  status: Boolean = true
+  landingpage: Boolean = false
+}
+
+input FindOneName {
+  _id: String
+  nom: String!
+  prenom: String
+  password: String
+  mail: String
+  societe: String
+  Numero_Telephone: String
+  role: String = "client"
+  status: Boolean = true
+  landingpage: Boolean = false
+}
+
+input FindOneRapport {
+  _id: Int!
+  NomIntervenant: String
+  ContenuRapport: String
+  TitreRapport: String
+  Client: String
+  SocieteClient: String
+  IdTicket: Int
+  NomMachine: String
+  IDMachine: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  Exist: Boolean = true
+}
+
+input FindOneTicketID {
+  _id: Int!
+  NomUser: String
+  IDClient: String
+  NomSociete: String
+  NomMachine: String
+  Id_Machine: String
+  TextProbleme: String
+  TitreTicket: String
+  DateFin: DateTime
+  Niveau: String
+  status1: Boolean = true
+  statusChef: Boolean = false
+  statusIntervenant: Boolean = false
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input FindOneSociete {
+  _id: Int!
+  nomSociete: String
+  fix: String
+  Email: String
+  gouvernerat: String
+  region: String
+  adresse: String
+  status: Boolean = true
+}
+
+input FindOneSocieteName {
+  _id: Float
+  nomSociete: String!
+  fix: String
+  Email: String
+  gouvernerat: String
+  region: String
+  adresse: String
+  status: Boolean = true
+}
+
+type Mutation {
+  createUser(CreateUserInput: CreateUserInput!): User!
+  delete_user(UserIdInput: UserIdInput!): ReponseUser!
+  createRapport(CreateRapportInput: CreateRapportInput!): Rapport!
+  updateUser(updateRapportInput: UpdateRapportInput!): Rapport!
+  delete_Rapport(RapportIdInput: RapportIdInput!): ResponseRapport!
+  createTicket(CreateTicketInput: CreateTicketInput!): Ticket!
+  delete_Ticket(TicketIdInput: TicketIdInput!): ReponseTicket!
+  updateTicket(UpdateTicketInput: UpdateTicketInput!): Ticket!
+  Valider_Ticket(TicketIdInput: TicketIdInput!): ReponseTicket!
+  createSociete(CreateSocieteInput: CreateSocieteInput!): Societe!
+  updateSociete(updateSocieteInput: UpdateSocieteInput!): Societe!
+  delete_Societe(SocieteIdInput: SocieteIdInput!): ReponseSociete!
+  login(LoginUserInput: LoginUserInput!): LoginResponse!
+  createMachine(CreateMachineInput: CreateMachineInput!): Machine!
+  delete_Machine(MachineIdInput: MachineIdInput!): ReponseMachine!
+}
+
+input CreateUserInput {
+  _id: String
+  nom: String!
+  prenom: String!
+  password: String!
+  mail: String!
+  societe: String!
+  Numero_Telephone: String!
+  role: String = "client"
+  status: Boolean = true
+  landingpage: Boolean = false
+}
+
+input UserIdInput {
+  _id: String!
+  nom: String
+  prenom: String
+  password: String
+  mail: String
+  societe: String
+  Numero_Telephone: String
+  role: String = "client"
+  status: Boolean = true
+  landingpage: Boolean = false
+}
+
+input CreateRapportInput {
+  _id: Float
+  NomIntervenant: String!
+  ContenuRapport: String!
+  TitreRapport: String!
+  Client: String!
+  SocieteClient: String!
+  IdTicket: Int!
+  NomMachine: String!
+  IDMachine: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  Exist: Boolean = true
+}
+
+input UpdateRapportInput {
+  _id: Int!
+  NomIntervenant: String!
+  ContenuRapport: String!
+  TitreRapport: String
+  Client: String
+  SocieteClient: String
+  IdTicket: Int
+  NomMachine: String
+  IDMachine: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  Exist: Boolean = true
+}
+
+input RapportIdInput {
+  _id: Int!
+  NomIntervenant: String
+  ContenuRapport: String
+  TitreRapport: String
+  Client: String
+  SocieteClient: String
+  IdTicket: Int
+  NomMachine: String
+  IDMachine: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  Exist: Boolean = true
+}
+
+input CreateTicketInput {
+  _id: Float
+  NomUser: String!
+  IDClient: String
+  NomSociete: String!
+  NomMachine: String!
+  Id_Machine: String!
+  TextProbleme: String!
+  TitreTicket: String!
+  DateFin: DateTime
+  Niveau: String
+  status1: Boolean = true
+  statusChef: Boolean = false
+  statusIntervenant: Boolean = false
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input TicketIdInput {
+  _id: Int!
+  NomUser: String
+  IDClient: String
+  NomSociete: String
+  NomMachine: String
+  Id_Machine: String
+  TextProbleme: String
+  TitreTicket: String
+  DateFin: DateTime
+  Niveau: String
+  status1: Boolean = true
+  statusChef: Boolean = false
+  statusIntervenant: Boolean = false
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input UpdateTicketInput {
+  _id: Int!
+  NomUser: String!
+  IDClient: String
+  NomSociete: String!
+  NomMachine: String!
+  Id_Machine: String!
+  TextProbleme: String!
+  TitreTicket: String!
+  DateFin: DateTime
+  Niveau: String
+  status1: Boolean = true
+  statusChef: Boolean = false
+  statusIntervenant: Boolean = false
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input CreateSocieteInput {
+  _id: Float
+  nomSociete: String!
+  fix: String!
+  Email: String!
+  gouvernerat: String!
+  region: String!
+  adresse: String!
+  status: Boolean = true
+}
+
+input UpdateSocieteInput {
+  _id: Int!
+  nomSociete: String
+  fix: String
+  Email: String
+  gouvernerat: String
+  region: String
+  adresse: String
+  status: Boolean = true
+}
+
+input SocieteIdInput {
+  _id: Int!
+  nomSociete: String
+  fix: String
+  Email: String
+  gouvernerat: String
+  region: String
+  adresse: String
+  status: Boolean = true
+}
+
+input LoginUserInput {
+  mail: String!
+  password: String!
+}
+
+input CreateMachineInput {
+  _id: Float
+  Serial_Number: String!
+  nom_Societe: String!
+  Nom_Machine: String!
+  idMachine: String!
+  Status: Boolean = true
+}
+
+input MachineIdInput {
+  _id: Int!
+  Serial_Number: String
+  nom_Societe: String
+  Nom_Machine: String
+  idMachine: String
+  Status: Boolean = true
+}
